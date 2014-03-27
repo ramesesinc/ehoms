@@ -1,0 +1,10 @@
+<schema>
+	<element name="patientchart_diagnosis" tablename="patientchart_diagnosis">
+		<field name="objid" primary="true" />
+		<field name="parentid" required="true" />
+		<field name="diagnosistype" required="true" />
+		<field name="diagnosisid" required="true" />
+		<field name="remarks" />
+
+	</element>
+</schema>

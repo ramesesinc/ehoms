@@ -1,0 +1,7 @@
+<schema>
+	<element name="patientchart_doctororder_detail" tablename="patientchart_doctororder_detail">
+		<field name="objid" primary="true" />
+		<field name="parentid" required="true" />
+		<field name="detail" required="true" />
+	</element>
+</schema>

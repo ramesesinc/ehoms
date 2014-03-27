@@ -1,0 +1,15 @@
+<schema>
+	<element name="patientchart_doctororder" tablename="patientchart_doctororder">
+		<field name="objid" primary="true" />
+		<field name="parentid" required="true" />
+		<field name="state" required="true" />
+		<field name="title" required="true" />
+		<field name="interval" required="true" />
+		<field name="intervalunit" required="true" />
+		<field name="startdate" required="true" />
+		<field name="enddate" required="true" />
+		<field name="doctor_objid" required="true" />
+		<field name="doctor_name" required="true" />
+		<field name="expirydate" required="true" />
+	</element>
+</schema>
