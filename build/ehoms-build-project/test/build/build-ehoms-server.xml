@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="changeme" default="build-server" basedir=".">
+    <target name="init">
+        <property file="build-ehoms-server.properties"/>
+    </target>
+    
+    
+    <target name="cleanup" depends="init">
+        <delete dir="${target.ehoms.platform25.dir}/osiris2"/>
+        <delete dir="${target.ehoms.platform25.dir}/downloads"/>
+    </target>
+        
+    <!--=====================================================
+    = COPY OSIRIS SERVER 
+    =======================================================-->
+    <target name="copy-osiris3-server">
+        <copy todir="${target.dir}/osiris3-server/bin">
+            <fileset dir="${osiris3.server.dir}/bin"/>
+        </copy>
+        <copy todir="${target.dir}/osiris3-server/lib">
+            <fileset dir="${osiris3.server.dir}/lib"/>
+        </copy>
+        <copy todir="${target.dir}/osiris3-server/workspace">
+            <fileset dir="${osiris3.server.dir}/workspace"/>
+        </copy>
+    </target>
+    
+    
+    <!--=====================================================
+    = DEPLOY EHOMS  
+    =======================================================-->
+    <target name="deploy-ehoms-server">
+        <!-- copy datasources to server -->
+        <copy todir="${target.server.datasources.dir}">
+            <fileset dir="${ehoms.project.dir}/datasources"/>
+        </copy>
+        
+        <!-- copy ehoms apps -->
+        <copy todir="${target.server.ehoms.apps.dir}">
+            <fileset dir="${ehoms.project.dir}/server"/>
+        </copy>
+    </target>
+    
+    
+    <!--=====================================================
+    = DEPLOY INCUBATION JARS TO DEVLIBS
+    =======================================================-->
+    <target name="copy-incubation-jars-to-devlibs">
+        <antcall target="do-copy-incubation-jars-to-devlibs">
+            <param name="sourcefile" value="osiris2-client-themes"/>
+        </antcall>
+        <antcall target="do-copy-incubation-jars-to-devlibs">
+            <param name="sourcefile" value="rameses-services-extended"/>
+        </antcall>
+        <antcall target="do-copy-incubation-jars-to-devlibs">
+            <param name="sourcefile" value="rameses-client-ui-bio"/>
+        </antcall>
+        <antcall target="do-copy-incubation-jars-to-devlibs">
+            <param name="sourcefile" value="rameses-client-ui"/>
+        </antcall>
+    </target>
+    
+    <target name="do-copy-incubation-jars-to-devlibs">
+        <echo message="====> Copying ${sourcefile}" />
+        <property name="sourcejar" value="${incubation.dir}/${sourcefile}/dist/${sourcefile}.jar"/>
+        <copy file="${sourcejar}" todir="${devlib.projects.dir}" failonerror="false"/>
+    </target>
+    
+    <!--=====================================================
+    = DEPLOY SHARED  
+    =======================================================-->
+    <target name="deploy-project-shared">
+        <!-- copy project shared services -->
+        <copy todir="${target.server.shared25.modules.dir}">
+            <fileset dir="${shared.projects.dir}/server"/>
+        </copy>
+        
+        <!-- copy jars to platform -->
+        <antcall target="deploy-shared-to-platform">
+            <param name="sourcefile" value="client-system"/>
+        </antcall>
+        <antcall target="deploy-shared-to-platform">
+            <param name="sourcefile" value="client-ui-extended"/>
+        </antcall>
+        <antcall target="deploy-shared-to-platform">
+            <param name="sourcefile" value="rameses-client-menu"/>
+        </antcall>
+        <antcall target="deploy-shared-to-platform">
+            <param name="sourcefile" value="rameses-client-report"/>
+        </antcall>
+        <antcall target="deploy-shared-to-platform">
+            <param name="sourcefile" value="rameses-enterprise-accounts"/>
+        </antcall>
+        <antcall target="deploy-shared-to-platform">
+            <param name="sourcefile" value="rameses-enterprise-admin"/>
+        </antcall>
+        <antcall target="deploy-shared-to-platform">
+            <param name="sourcefile" value="rameses-enterprise-entity"/>
+        </antcall>
+        <antcall target="deploy-shared-to-platform">
+            <param name="sourcefile" value="rameses-enterprise-inventory"/>
+        </antcall>        
+        <antcall target="deploy-shared-to-platform">
+            <param name="sourcefile" value="rameses-enterprise-treasury"/>
+        </antcall>
+        <antcall target="deploy-shared-to-platform">
+            <param name="sourcefile" value="rameses-rules-mgmt"/>
+        </antcall>
+        <antcall target="deploy-shared-to-platform">
+            <param name="sourcefile" value="rameses-client-notification"/>
+        </antcall>
+    </target>
+    
+    
+    <target name="deploy-shared-to-platform">
+        <echo message="====> Copying ${sourcefile}" />
+        <property name="sourcejar" value="${shared.projects.dir}/client/${sourcefile}/dist/${sourcefile}.jar"/>
+        <copy file="${sourcejar}" todir="${target.web.resources.dir}/downloads/modules/shared" failonerror="false"/>
+    </target>
+    
+    
+    <!--=====================================================
+    = UPDATE OSIRIS-SERVER LIBS
+    =======================================================-->
+    <target name="update-osiris-server-libs">
+        <antcall target="do-update-osiris-server-libs">
+            <param name="sourcefile" value="rameses-common2"/>
+        </antcall>
+        <antcall target="do-update-osiris-server-libs">
+            <param name="sourcefile" value="rameses-osiris3-core2"/>
+        </antcall>
+        <antcall target="do-update-osiris-server-libs">
+            <param name="sourcefile" value="rameses-osiris3-rules"/>
+        </antcall>
+        <antcall target="do-update-osiris-server-libs">
+            <param name="sourcefile" value="rameses-services-extended"/>
+        </antcall>
+        <antcall target="do-update-osiris-server-libs">
+            <param name="sourcefile" value="rameses-custom-impl"/>
+        </antcall>
+        <antcall target="do-update-osiris-server-libs">
+            <param name="sourcefile" value="rameses-osiris3-server"/>
+        </antcall>
+    </target>
+    
+    <target name="do-update-osiris-server-libs">
+        <property name="sourcejar" value="${incubation.dir}/${sourcefile}/dist/${sourcefile}.jar"/>
+
+        <echo message="====> Copying ${sourcefile}" />
+        <copy file="${sourcejar}" todir="${target.server.dir}/lib" failonerror="false"/>
+    </target>
+    
+    
+    
+    
+    <!--=====================================================
+    = DEPLOY EHOMS JAR 
+    =======================================================-->
+    <target name="deploy-ehoms-client-jars">
+        <!-- copy jars to platform core -->
+    </target>
+    
+    <target name="deploy-ehoms-jars-to-platform">
+        <property name="sourcejar" value="${ehoms.project.dir}/client/${sourcefile}/dist/${sourcefile}.jar"/>
+
+        <echo message="====> Copying ${sourcefile}" />
+        <copy file="${sourcejar}" todir="${target.web.resources.dir}/downloads/modules" failonerror="false"/>
+    </target>
+    
+    <!--=====================================================
+    = DEPLOY PLUGINS JAR 
+    =======================================================-->
+    <target name="deploy-ehoms-plugins-jars">
+        <!--
+        <antcall target="deploy-plugins-jars-to-platform">
+            <param name="sourcefile" value="rameses-gov-etracs-ctc"/>
+        </antcall>
+        -->
+    </target>
+    
+    <target name="deploy-plugins-jars-to-platform">
+        <property name="sourcejar" value="${ehoms.project.dir}/plugins/client/${sourcefile}/dist/${sourcefile}.jar"/>
+
+        <echo message="====> Copying ${sourcefile}" />
+        <copy file="${sourcejar}" todir="${target.web.resources.dir}/downloads/modules" failonerror="false"/>
+    </target>
+    
+    
+    <!--=====================================================
+    = DEPLOY DEVLIB JAR 
+    =======================================================-->
+    <target name="deploy-devlibs">
+        <property name="target.downloads.core.dir" value="${target.web.resources.dir}/downloads/modules/core"/>
+        <copy file="${devlib.projects.dir}/osiris2-client-themes.jar" todir="${target.downloads.core.dir}" failonerror="false"/>
+        <copy file="${devlib.projects.dir}/osiris2-client-ui.jar" todir="${target.downloads.core.dir}" failonerror="false"/>
+        <copy file="${devlib.projects.dir}/osiris2-framework.jar" todir="${target.downloads.core.dir}" failonerror="false"/>
+        <copy file="${devlib.projects.dir}/osiris2-report.jar" todir="${target.downloads.core.dir}" failonerror="false"/>
+        <copy file="${devlib.projects.dir}/rameses-client-ui.jar" todir="${target.downloads.core.dir}" failonerror="false"/>
+        <copy file="${devlib.projects.dir}/rameses-common2.jar" todir="${target.downloads.core.dir}" failonerror="false"/>
+        <copy file="${devlib.projects.dir}/rameses-custom-impl.jar" todir="${target.downloads.core.dir}" failonerror="false"/>
+        <copy file="${devlib.projects.dir}/rameses-client-ui-bio.jar" todir="${target.downloads.core.dir}" failonerror="false"/>
+    </target>
+    
+    <!--=====================================================
+    = DEPLOY EHOMS PLATFORM
+    =======================================================-->
+    <target name="copy-ehoms-platform">
+        <!-- copy platform -->
+        <copy todir="${target.ehoms.platform25.dir}">
+            <fileset dir="${ehoms.project.dir}/platform/${ehoms.platform}"/>
+        </copy>
+    </target>
+
+    <target name="build-server" depends="init, cleanup, copy-osiris3-server, copy-ehoms-platform, deploy-ehoms-server, deploy-project-shared, deploy-ehoms-client-jars, deploy-ehoms-plugins-jars, copy-incubation-jars-to-devlibs, deploy-devlibs, update-osiris-server-libs">
+    </target>
+
+    <target name="xxbuild-server" depends="init,cleanup,copy-osiris3-server,copy-ehoms-platform,deploy-ehoms-server,deploy-project-shared, deploy-ehoms-client-jars, copy-incubation-jars-to-devlibs, deploy-devlibs">
+    </target>
+
+</project>
