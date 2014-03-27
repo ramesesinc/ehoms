@@ -28,7 +28,7 @@
           </PropertyBean>
         </Property>
         <Property name="text" type="java.lang.String" value="xImage1"/>
-        <Property name="iconResource" type="java.lang.String" value="images/etracs-logo.png"/>
+        <Property name="iconResource" type="java.lang.String" value="images/ehoms-logo.png"/>
         <Property name="opaque" type="boolean" value="true"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[46, 60]"/>

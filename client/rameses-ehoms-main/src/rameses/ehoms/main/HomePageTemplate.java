@@ -35,7 +35,7 @@ public class HomePageTemplate extends javax.swing.JPanel {
         xEtchedBorder1.setPadding(new java.awt.Insets(0, 10, 0, 0));
         xImage1.setBorder(xEtchedBorder1);
         xImage1.setText("xImage1");
-        xImage1.setIconResource("images/etracs-logo.png");
+        xImage1.setIconResource("images/ehoms-logo.png");
         xImage1.setOpaque(true);
         xImage1.setPreferredSize(new java.awt.Dimension(46, 60));
         add(xImage1, java.awt.BorderLayout.NORTH);
