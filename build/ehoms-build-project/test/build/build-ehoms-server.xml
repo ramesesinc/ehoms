@@ -14,15 +14,16 @@
     = COPY OSIRIS SERVER 
     =======================================================-->
     <target name="copy-osiris3-server">
-        <copy todir="${target.dir}/osiris3-server/bin">
+        <copy todir="${target.server.dir}/bin">
             <fileset dir="${osiris3.server.dir}/bin"/>
         </copy>
-        <copy todir="${target.dir}/osiris3-server/lib">
+        <copy todir="${target.server.dir}/lib">
             <fileset dir="${osiris3.server.dir}/lib"/>
         </copy>
-        <copy todir="${target.dir}/osiris3-server/workspace">
-            <fileset dir="${osiris3.server.dir}/workspace"/>
+        <copy todir="${target.server.dir}/workspace/web">
+            <fileset dir="${ehoms.project.dir}/web"/>
         </copy>
+        <copy file="${ehoms.project.dir}/build/server.conf" todir="${target.server.dir}/bin" failonerror="false"/>                
     </target>
     
     
