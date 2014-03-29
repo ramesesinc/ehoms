@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="start-ehoms-server" default="start" basedir=".">
+    
+    <target name="init">
+        <property file="build-ehoms-server.properties"/>
+    </target>
+        
+    <target name="start" depends="init">
+        <exec executable="cmd" dir="${target.server.dir}/bin">
+            <arg value="/c"/>
+            <arg value="run.bat"/>
+        </exec>
+    </target>
+
+</project>
