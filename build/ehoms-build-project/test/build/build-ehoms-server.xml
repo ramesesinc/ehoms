@@ -3,13 +3,19 @@
     <target name="init">
         <property file="build-ehoms-server.properties"/>
     </target>
-    
-    
+        
     <target name="cleanup" depends="init">
         <delete dir="${target.ehoms.platform25.dir}/osiris2"/>
         <delete dir="${target.ehoms.platform25.dir}/downloads"/>
     </target>
-        
+    
+    <target name="run-batch-file" depends="init">
+        <exec executable="cmd" dir="${target.server.dir}/bin">
+            <arg value="/c"/>
+            <arg value="run.bat"/>
+        </exec>
+    </target>
+    
     <!--=====================================================
     = COPY OSIRIS SERVER 
     =======================================================-->
@@ -212,7 +218,7 @@
         </copy>
     </target>
 
-    <target name="build-server" depends="init, cleanup, copy-osiris3-server, copy-ehoms-platform, deploy-ehoms-server, deploy-project-shared, deploy-ehoms-client-jars, deploy-ehoms-plugins-jars, copy-incubation-jars-to-devlibs, deploy-devlibs, update-osiris-server-libs">
+    <target name="build-server" depends="init, cleanup, copy-osiris3-server, copy-ehoms-platform, deploy-ehoms-server, deploy-project-shared, deploy-ehoms-client-jars, deploy-ehoms-plugins-jars, copy-incubation-jars-to-devlibs, deploy-devlibs, update-osiris-server-libs, run-batch-file">
     </target>
 
     <target name="xxbuild-server" depends="init,cleanup,copy-osiris3-server,copy-ehoms-platform,deploy-ehoms-server,deploy-project-shared, deploy-ehoms-client-jars, copy-incubation-jars-to-devlibs, deploy-devlibs">
