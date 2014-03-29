@@ -4,7 +4,7 @@
  * Created on August 16, 2013, 5:51 PM
  */
 
-package rameses.ehoms.main;
+package com.rameses.ehoms.main;
 
 import com.rameses.rcp.ui.annotations.Template;
 

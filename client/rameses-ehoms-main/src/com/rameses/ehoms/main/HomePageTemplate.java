@@ -4,7 +4,7 @@
  * Created on August 17, 2013, 10:20 AM
  */
 
-package rameses.ehoms.main;
+package com.rameses.ehoms.main;
 
 /**
  *

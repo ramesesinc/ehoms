@@ -2,8 +2,8 @@
     <invokers>
         <invoker type="loader" index="10000" action="init"/>
     </invokers>    
-    <code class="rameses.ehoms.main.HomeControllerImpl"/>    
+    <code class="com.rameses.ehoms.main.HomeControllerImpl"/>    
     <pages>
-        <page template="rameses.ehoms.main.HomePage"/>
+        <page template="com.rameses.ehoms.main.HomePage"/>
     </pages>
 </workunit>
