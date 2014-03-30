@@ -3,6 +3,12 @@ import com.rameses.util.*;
 import java.rmi.server.*;
 import com.rameses.services.extended.*;
 
-public class PatientChartActivityService {
+public class PatientChartActivityService extends ActiveCrudListService {
+
+	@ActiveDB("patientchart_activity")
+	def em;
+
+	
+
 
 }

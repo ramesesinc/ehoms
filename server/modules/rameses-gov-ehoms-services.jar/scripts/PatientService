@@ -3,6 +3,26 @@ import com.rameses.util.*;
 import java.rmi.server.*;
 import com.rameses.services.extended.*;
 
-public class PatientService {
+public class PatientService extends ActiveCrudListService {
+
+	@ActiveDB("patient")
+	def em;
+
+	@Service("SequenceService")
+	def seqSvc;
+
+	@ProxyMethod
+	public def getColumns(o) {
+		return [
+			[name:'acctid', caption:'Patient ID'],
+			[name:'lastname', caption:'Lastname'],
+			[name:'firstname', caption:'Firstname'],
+			[name:'middlename', caption:'Middlename'],
+		]
+	}
+
+	public void beforeCreate(o) {
+		o.acctid = "P" + seqSvc.getNextFormattedSeries( "PATIENT" ); 
+	}
 
 }

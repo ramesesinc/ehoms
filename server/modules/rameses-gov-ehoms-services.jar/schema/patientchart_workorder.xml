@@ -1,5 +1,5 @@
 <schema>
-	<element name="patientchart_doctororder" tablename="patientchart_doctororder">
+	<element name="patientchart_workorder" tablename="patientchart_workorder">
 		<field name="objid" primary="true" />
 		<field name="parentid" required="true" />
 		<field name="state" required="true" />
@@ -8,8 +8,8 @@
 		<field name="intervalunit" required="true" />
 		<field name="startdate" required="true" />
 		<field name="enddate" required="true" />
-		<field name="doctor_objid" required="true" />
-		<field name="doctor_name" required="true" />
+		<field name="requester_objid" required="true" />
+		<field name="requester_name" required="true" />
 		<field name="expirydate" required="true" />
 	</element>
 </schema>

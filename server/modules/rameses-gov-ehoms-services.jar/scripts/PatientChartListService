@@ -1,0 +1,36 @@
+import com.rameses.annotations.*;
+import com.rameses.util.*;
+import java.rmi.server.*;
+import com.rameses.services.extended.*;
+
+public class PatientChartListService extends ActiveCrudListService {
+
+	@ActiveDB("patientchart")
+	def em;
+
+	@ProxyMethod
+	public def getNodes(o) {
+		return [
+			[name: 'task', caption:'Tasks', allowSearch:true],
+		];
+	}
+
+	@ProxyMethod
+	public def getColumns(o) {
+		return [
+			[name:'chartno', caption:'Chart No'],
+			[name:'patient.name', caption:'Patient Name'],
+			[name:'section', caption:'Section'],
+			[name:'physician.name', caption:'Att.Physician'],
+			
+		];
+	}	
+
+	public void afterList(o, list) {
+		list.each {
+			it.patient.name = it.patient.lastname + ', ' + it.patient.firstname;
+			it.physician.name = it.physician.lastname + ', ' + it.physician.firstname;
+		}
+	}
+
+}

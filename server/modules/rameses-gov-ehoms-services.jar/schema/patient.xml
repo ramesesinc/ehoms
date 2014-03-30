@@ -7,9 +7,9 @@
 		<field name="middlename" />
 		<field name="gender" required="true" />
 		<field name="civilstatus" required="true" />
-		<field name="birthdate" required="true" />
-		<field name="birthplace" required="true" />
-		<field name="nationality" required="true" />
+		<field name="birthdate"  />
+		<field name="birthplace" />
+		<field name="nationality" />
 		<field name="occupation" />
 		<field name="religion" />
 		<field name="weight" />

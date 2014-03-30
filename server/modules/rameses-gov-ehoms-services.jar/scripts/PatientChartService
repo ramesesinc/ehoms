@@ -3,6 +3,41 @@ import com.rameses.util.*;
 import java.rmi.server.*;
 import com.rameses.services.extended.*;
 
-public class PatientChartService {
+public class PatientChartService extends ActiveCrudService {
 
+	@ActiveDB("patientchart")
+	def em;
+
+	@Service("SequenceService")
+	def seqSvc;
+
+	@Service("DateService")
+	def dateSvc;
+
+	@Service("PatientChartActivityService")
+	def activitySvc;
+
+	@Env
+	def env;
+
+	@Service("PhysicianLookupService")
+	def physicianSvc;
+
+	public void beforeCreate(o) {
+		o.chartno = "CHT" + seqSvc.getNextFormattedSeries( "PATIENTCHART" ); 
+		o.state = 'ACTIVE';
+		o.createdby = [objid:env.USERID, name:env.USER];
+		o.dtfiled = dateSvc.serverDate;
+	}
+
+	public void afterCreate(o) {
+		def act = [objid:'ACT'+new UID(), parentid:o.objid];
+		act.startdate = dateSvc.serverDate;
+		act.activity = [objid:'VS'];
+		activitySvc.create( act );
+	}	
+
+	public void afterOpen(o) {
+		o.attendingphysician = physicianSvc.findById(o.attendingphysician);	
+	}
 }
